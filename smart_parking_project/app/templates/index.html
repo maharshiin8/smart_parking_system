@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParkSense — Live Lot Status</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">P</span>
+    <div class="brand-text">
+      <h1>ParkSense</h1>
+      <p>Lot&nbsp;7&nbsp;/&nbsp;North&nbsp;Campus&nbsp;Deck — Camera&nbsp;01</p>
+    </div>
+  </div>
+  <div class="status-controls">
+    <span class="live-dot" id="live-dot"></span>
+    <span class="updated-label">Updated <span id="updated-at">—</span></span>
+    <button id="refresh-btn" class="refresh-btn">Pull new frame</button>
+  </div>
+</header>
+
+<main>
+  <section class="stats-row">
+    <div class="stat-card">
+      <span class="stat-label">Total spots</span>
+      <span class="stat-value" id="stat-total">—</span>
+    </div>
+    <div class="stat-card accent-available">
+      <span class="stat-label">Available</span>
+      <span class="stat-value" id="stat-empty">—</span>
+    </div>
+    <div class="stat-card accent-occupied">
+      <span class="stat-label">Occupied</span>
+      <span class="stat-value" id="stat-occupied">—</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Occupancy rate</span>
+      <span class="stat-value" id="stat-rate">—</span>
+    </div>
+  </section>
+
+  <section class="map-panel">
+    <div class="map-panel-header">
+      <h2>Live spot map</h2>
+      <div class="legend">
+        <span class="legend-item"><i class="swatch empty"></i>Empty</span>
+        <span class="legend-item"><i class="swatch occupied"></i>Occupied</span>
+      </div>
+    </div>
+    <div id="lot-grid" class="lot-grid"></div>
+    <p class="hint">Hover a spot for its CNN confidence score.</p>
+  </section>
+
+  <section class="about-panel">
+    <h2>How this works</h2>
+    <ol>
+      <li>A fixed camera captures the lot; each parking space's pixel coordinates were marked once as <code>spots.json</code>.</li>
+      <li>Every space is cropped into a small image patch.</li>
+      <li>A ResNet-18 CNN, fine-tuned to classify patches as <strong>empty</strong> or <strong>occupied</strong>, scores every patch.</li>
+      <li>Results are aggregated into the counts and map above and refreshed on demand.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <p>Smart Parking System — College Project Demo · PyTorch CNN (ResNet-18 transfer learning) · Flask</p>
+</footer>
+
+<div id="tooltip" class="tooltip"></div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

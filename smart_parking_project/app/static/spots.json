@@ -1,0 +1,225 @@
+{
+  "image": "lot_camera_1.jpg",
+  "image_size": [
+    636,
+    388
+  ],
+  "spots": [
+    {
+      "id": "S1",
+      "row": 0,
+      "col": 0,
+      "bbox": [
+        30,
+        70,
+        120,
+        160
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S2",
+      "row": 0,
+      "col": 1,
+      "bbox": [
+        126,
+        70,
+        216,
+        160
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S3",
+      "row": 0,
+      "col": 2,
+      "bbox": [
+        222,
+        70,
+        312,
+        160
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S4",
+      "row": 0,
+      "col": 3,
+      "bbox": [
+        318,
+        70,
+        408,
+        160
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S5",
+      "row": 0,
+      "col": 4,
+      "bbox": [
+        414,
+        70,
+        504,
+        160
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S6",
+      "row": 0,
+      "col": 5,
+      "bbox": [
+        510,
+        70,
+        600,
+        160
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S7",
+      "row": 1,
+      "col": 0,
+      "bbox": [
+        30,
+        166,
+        120,
+        256
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S8",
+      "row": 1,
+      "col": 1,
+      "bbox": [
+        126,
+        166,
+        216,
+        256
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S9",
+      "row": 1,
+      "col": 2,
+      "bbox": [
+        222,
+        166,
+        312,
+        256
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S10",
+      "row": 1,
+      "col": 3,
+      "bbox": [
+        318,
+        166,
+        408,
+        256
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S11",
+      "row": 1,
+      "col": 4,
+      "bbox": [
+        414,
+        166,
+        504,
+        256
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S12",
+      "row": 1,
+      "col": 5,
+      "bbox": [
+        510,
+        166,
+        600,
+        256
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S13",
+      "row": 2,
+      "col": 0,
+      "bbox": [
+        30,
+        262,
+        120,
+        352
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S14",
+      "row": 2,
+      "col": 1,
+      "bbox": [
+        126,
+        262,
+        216,
+        352
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S15",
+      "row": 2,
+      "col": 2,
+      "bbox": [
+        222,
+        262,
+        312,
+        352
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S16",
+      "row": 2,
+      "col": 3,
+      "bbox": [
+        318,
+        262,
+        408,
+        352
+      ],
+      "ground_truth": "empty"
+    },
+    {
+      "id": "S17",
+      "row": 2,
+      "col": 4,
+      "bbox": [
+        414,
+        262,
+        504,
+        352
+      ],
+      "ground_truth": "occupied"
+    },
+    {
+      "id": "S18",
+      "row": 2,
+      "col": 5,
+      "bbox": [
+        510,
+        262,
+        600,
+        352
+      ],
+      "ground_truth": "occupied"
+    }
+  ]
+}
