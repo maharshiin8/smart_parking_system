@@ -1,72 +1,307 @@
-# smart-parking-system
-Smart Parking System — AI/ML Computer-Vision Project
-A college-level smart parking system that detects, per parking spot, whether it is empty or occupied directly from camera images, using a PyTorch CNN (ResNet-18 transfer learning), and displays live results on a Flask web dashboard.
+# 🚗 Smart Parking System — AI Computer Vision Project
 
-See Smart_Parking_System_Report.docx for the full write-up (abstract, literature review, architecture, methodology, results, limitations, and future work) — this README only covers how to run the code.
+An AI-powered smart parking management system that detects whether individual parking spaces are **empty or occupied** using deep learning and computer vision. The system uses a **PyTorch CNN with ResNet-18 transfer learning** to classify parking spaces from camera images and displays real-time occupancy information through a **Flask web dashboard**.
 
-1. How it works
-Calibrate once per camera — mark every parking space's pixel bounding box in spots.json (already done for the included demo lot image).
-Classify — crop each spot out of the current frame and run it through a CNN fine-tuned to output empty or occupied with a confidence score.
-Aggregate & display — combine every spot's prediction into lot-wide counts and show them, plus a color-coded map, on a live dashboard.
-2. Project layout
-smart_parking_project/
-├── requirements.txt
-├── Smart_Parking_System_Report.docx   # full project report
+This project was developed as a **college group project** to demonstrate the practical application of deep learning, computer vision, and web development for automated parking management.
+
+---
+
+## ✨ Features
+
+* 🚘 Individual parking space occupancy detection
+* 🧠 Deep learning classification using ResNet-18
+* 📷 Camera image-based parking analysis
+* 🎨 Color-coded parking availability map
+* 📊 Real-time dashboard showing:
+
+  * Total parking spaces
+  * Occupied spaces
+  * Available spaces
+  * Occupancy percentage
+* 🔄 Live status updates
+* 📈 Confidence score for each prediction
+
+---
+
+## 🏗️ System Architecture
+
+```text
+Camera Image
+      |
+      ↓
+Parking Space Mapping
+      |
+      ↓
+Image Cropping
+      |
+      ↓
+CNN Classification Model
+(ResNet-18 Transfer Learning)
+      |
+      ↓
+Occupancy Prediction
+      |
+      ↓
+Flask Dashboard
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### AI / Machine Learning
+
+* Python
+* PyTorch
+* Torchvision
+* ResNet-18 Transfer Learning
+* OpenCV
+* Pillow
+
+### Backend
+
+* Flask
+* REST API
+* JSON-based data handling
+
+### Frontend
+
+* HTML
+* CSS
+* JavaScript
+
+### Tools
+
+* Git
+* GitHub
+
+---
+
+## 📂 Project Structure
+
+```text
+smart-parking-system/
+
+├── app/
+│   ├── app.py                  # Flask dashboard backend
+│   ├── templates/
+│   │   └── index.html
+│   └── static/
+│       ├── style.css
+│       ├── script.js
+│       ├── status.json
+│       └── annotated.jpg
+│
 ├── src/
-│   ├── generate_synthetic_dataset.py  # builds a demo train/val dataset
-│   ├── generate_demo_lot.py           # builds a demo full-lot camera frame
-│   ├── dataset.py                     # PyTorch DataLoaders
-│   ├── model.py                       # ResNet-18 transfer-learning classifier
-│   ├── train.py                       # training script -> models/best_model.pt
-│   └── infer.py                       # run the trained model on a full frame
+│   ├── dataset.py              # PyTorch dataset loader
+│   ├── model.py                # ResNet-18 model
+│   ├── train.py                # Model training
+│   ├── infer.py                # Parking prediction
+│   ├── generate_demo_lot.py
+│   └── generate_synthetic_dataset.py
+│
 ├── data/
-│   ├── dataset/train|val/{empty,occupied}/   # patch-classification dataset
-│   └── raw/lot_camera_1.jpg, spots.json      # demo full-lot frame + spot map
+│   ├── dataset/
+│   └── raw/
+│       ├── lot_camera_1.jpg
+│       └── spots.json
+│
 ├── models/
-│   └── best_model.pt                  # trained checkpoint (after training)
-└── app/
-    ├── app.py                         # Flask backend (dashboard + API)
-    ├── templates/index.html
-    └── static/ (style.css, script.js, status.json, images)
-3. Setup
+│   └── best_model.pt
+│
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/smart-parking-system.git
+
+cd smart-parking-system
+```
+
+Create a virtual environment:
+
+```bash
 python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+```
+
+Activate environment:
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
-Note on pretrained weights: model.py tries to download ImageNet weights for the ResNet-18 backbone the first time you train. This requires internet access. If it's unavailable, the code automatically falls back to random initialization so the pipeline still runs — but for real accuracy, training with pretrained=True (the default) on a machine with internet access is strongly recommended.
+```
 
-4. Quick start — end-to-end demo
-# 1. Generate a demo dataset (or replace with a real dataset — see below)
-python src/generate_synthetic_dataset.py --n_train 500 --n_val 120
+---
 
-# 2. Generate a demo full-lot camera frame + spot map
-python src/generate_demo_lot.py --rows 3 --cols 6
+# ▶️ Running the Project
 
-# 3. Train the classifier
-python src/train.py --epochs 8 --data_root ../data/dataset --out_dir ../models
-#   (run from src/, or pass --data_root data/dataset --out_dir models from project root)
+## 1. Generate Training Dataset
 
-# 4. Run inference on the demo lot frame
-python src/infer.py --image data/raw/lot_camera_1.jpg --spots data/raw/spots.json \
-    --model models/best_model.pt --out_json app/static/status.json \
-    --out_image app/static/annotated.jpg
+```bash
+python src/generate_synthetic_dataset.py \
+--n_train 500 \
+--n_val 120
+```
 
-# 5. Launch the dashboard
+---
+
+## 2. Generate Demo Parking Lot
+
+```bash
+python src/generate_demo_lot.py \
+--rows 3 \
+--cols 6
+```
+
+---
+
+## 3. Train Model
+
+```bash
+python src/train.py \
+--epochs 8 \
+--data_root data/dataset \
+--out_dir models
+```
+
+The trained model will be saved at:
+
+```text
+models/best_model.pt
+```
+
+---
+
+## 4. Run Parking Detection
+
+```bash
+python src/infer.py \
+--image data/raw/lot_camera_1.jpg \
+--spots data/raw/spots.json \
+--model models/best_model.pt \
+--out_json app/static/status.json \
+--out_image app/static/annotated.jpg
+```
+
+---
+
+## 5. Start Dashboard
+
+```bash
 cd app
+
 python app.py
-# open http://localhost:5000
-Click "Pull new frame" on the dashboard to simulate a new camera frame arriving (randomized occupancy) and watch the CNN reclassify every spot live.
+```
 
-5. Using a real dataset (recommended for real accuracy numbers)
-Swap the synthetic dataset for a real one, e.g. PKLot or CNRPark-EXT. Reorganize the images into:
+Open your browser:
 
-data/dataset/train/empty/*.jpg
-data/dataset/train/occupied/*.jpg
-data/dataset/val/empty/*.jpg
-data/dataset/val/occupied/*.jpg
-then run src/train.py as above — no other code changes are required.
+```text
+http://localhost:5000
+```
 
-6. Using a real camera feed
-Replace the simulate_new_frame() call in app/app.py's /api/refresh route with a frame grab from your camera (e.g. via OpenCV's cv2.VideoCapture on an RTSP URL), keep spots.json calibrated for that camera's fixed viewpoint, and the rest of the pipeline (crop → classify → aggregate → dashboard) works unchanged.
+---
 
-7. Tech stack
-Python · PyTorch / torchvision (ResNet-18 transfer learning) · Pillow · Flask · HTML/CSS/JavaScript
+# 🧠 Machine Learning Approach
+
+The system uses **ResNet-18 transfer learning** for parking space classification.
+
+Workflow:
+
+1. Capture parking lot image.
+2. Load predefined parking space locations.
+3. Crop individual parking spaces.
+4. Pass crops through the CNN model.
+5. Classify each space:
+
+   * Empty
+   * Occupied
+6. Display results on the dashboard.
+
+---
+
+# 📊 Dashboard
+
+The dashboard provides:
+
+* Total parking spaces
+* Available spaces
+* Occupied spaces
+* Occupancy percentage
+* Color-coded parking visualization
+* Prediction confidence
+* Annotated parking image
+
+---
+
+# 📚 Dataset
+
+The project supports both synthetic and real parking datasets.
+
+Recommended datasets:
+
+* PKLot
+* CNRPark-EXT
+
+Dataset format:
+
+```text
+dataset/
+
+├── train/
+│   ├── empty/
+│   └── occupied/
+
+└── val/
+    ├── empty/
+    └── occupied/
+```
+
+---
+
+# 🚀 Future Improvements
+
+* Real-time CCTV video processing
+* YOLO-based vehicle detection
+* Automatic parking spot detection
+* License plate recognition
+* Cloud deployment
+* Mobile application support
+* Parking availability prediction
+
+---
+
+# 👥 Team Project
+
+Developed as a college group project.
+
+### My Contributions
+
+* Developed Python backend logic
+* Integrated deep learning model
+* Implemented inference pipeline
+* Built Flask APIs
+* Connected ML predictions with dashboard
+
+---
+
+## ⭐ If you find this project useful, consider giving it a star!
